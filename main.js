@@ -1,5 +1,8 @@
 // fetch api 
 const loadData=()=>{
+  // start loading when page load 
+  const loading=document.getElementById('loading');
+    loading.classList.remove('d-none');
     fetch('https://openapi.programming-hero.com/api/ai/tools')
     .then(res=>res.json())
     .then(data=>displayData(data.data))
@@ -9,8 +12,10 @@ const loadData=()=>{
 const displayData=(data)=>{
     // console.log(data);
     const cardContainer=document.getElementById('card-section');
+    // document.getElementById('card-section').innerHTML='';
     data.tools.slice(0,6).forEach((datas)=>{
-        console.log(datas);
+
+        // console.log(datas);
         const card=document.createElement('div')
         card.classList.add('col');
         card.innerHTML=`
@@ -24,13 +29,22 @@ const displayData=(data)=>{
           <li>${datas.features[2]}</li>
           </ol>
           <hr>
+          <div class="d-flex justify-content-between align-items-center">
+          <div>
           <p class="card-text">${datas.name}</p>
           <p class="card-text"><i class="fa-regular fa-calendar-days"></i> &nbsp; <span> ${datas.published_in}</span></p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+          <a><i class="fa-solid fa-arrow-right text-danger"></i></a>
+          </div>
+          
         </div>
       </div>
         `;
         cardContainer.appendChild(card)
+
+        // stop loading 
+        loading.classList.add('d-none');
+
     })
 
 }
@@ -40,7 +54,44 @@ const displayData=(data)=>{
 const showAll=()=>{
     fetch('https://openapi.programming-hero.com/api/ai/tools')
     .then(res=>res.json())
-    .then(data=>displayData(data.data))
+    .then(data=>displayAllData(data.data))
+}
+
+const displayAllData=(data)=>{
+  const cardContainer=document.getElementById('card-section');
+  const seemore=document.getElementById('seeMore');
+  cardContainer.innerHTML=''
+  data.tools.forEach((datas)=>{
+
+      console.log(datas);
+      const card=document.createElement('div')
+      card.classList.add('col');
+      card.innerHTML=`
+      <div class="card">
+      <img src="${datas.image}" class="img-fluid" id="cardImg" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">Features</h5>
+        <ol>
+        <li>${datas.features[0]}</li>
+        <li>${datas.features[1]}</li>
+        <li>${datas.features[2]}</li>
+        </ol>
+        <hr>
+        <div class="d-flex justify-content-between align-items-center">
+        <div>
+        <p class="card-text">${datas.name}</p>
+        <p class="card-text"><i class="fa-regular fa-calendar-days"></i> &nbsp; <span> ${datas.published_in}</span></p>
+        </div>
+        <a><i class="fa-solid fa-arrow-right text-danger"></i></a>
+        </div>
+        
+      </div>
+    </div>
+      `;
+      cardContainer.appendChild(card)
+      seemore.classList.add('d-none');
+  })
+
 }
 
 console.log(loadData());

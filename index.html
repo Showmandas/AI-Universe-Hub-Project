@@ -28,15 +28,23 @@
       <button class="btn btn-danger p-2">Sort By Date</button>
     </header>
     <!--header section-->
-
+<section class="my-4 d-none" id="loading">
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</section>
     <!-- card section  -->
     <section
       id="card-section"
       class="row row-cols-1 row-cols-md-3 g-4 my-5 container mx-auto"
     ></section>
 
-    <section class="my-5 text-center">
-        <button class="btn btn-danger" onclick="showAll()">See More</button>
+    <section id="seeMore"  class="my-5 text-center">
+      <div class=" d-flex justify-content-center align-items-center mt-5 mb-5">
+        <button type="button" class="btn btn-danger" id="seemore" onclick="showAll()">See More</button>
+    </div>
     </section>
     <!--/bootstrap js cdn-->
     <script
