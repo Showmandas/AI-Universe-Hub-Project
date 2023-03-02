@@ -9,16 +9,23 @@ const loadData=()=>{
 const displayData=(data)=>{
     // console.log(data);
     const cardContainer=document.getElementById('card-section');
-    data.tools.forEach(datas=>{
+    data.tools.slice(0,6).forEach((datas)=>{
         console.log(datas);
         const card=document.createElement('div')
         card.classList.add('col');
         card.innerHTML=`
-        <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
+        <div class="card">
+        <img src="${datas.image}" class="img-fluid" id="cardImg" alt="...">
         <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <h5 class="card-title">Features</h5>
+          <ol>
+          <li>${datas.features[0]}</li>
+          <li>${datas.features[1]}</li>
+          <li>${datas.features[2]}</li>
+          </ol>
+          <hr>
+          <p class="card-text">${datas.name}</p>
+          <p class="card-text">${datas.published_in}</p>
           <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
       </div>
