@@ -25,7 +25,7 @@ const displayData=(data)=>{
           </ol>
           <hr>
           <p class="card-text">${datas.name}</p>
-          <p class="card-text">${datas.published_in}</p>
+          <p class="card-text"><i class="fa-regular fa-calendar-days"></i> &nbsp; <span> ${datas.published_in}</span></p>
           <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
       </div>
@@ -35,5 +35,12 @@ const displayData=(data)=>{
 
 }
 
+
+// show all card 
+const showAll=()=>{
+    fetch('https://openapi.programming-hero.com/api/ai/tools')
+    .then(res=>res.json())
+    .then(data=>displayData(data.data))
+}
 
 console.log(loadData());
