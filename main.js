@@ -34,7 +34,7 @@ const displayData=(data)=>{
           <p class="card-text">${datas.name}</p>
           <p class="card-text"><i class="fa-regular fa-calendar-days"></i> &nbsp; <span> ${datas.published_in}</span></p>
           </div>
-          <a><i class="fa-solid fa-arrow-right text-danger"></i></a>
+          <i class="fa-solid fa-arrow-right text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="fetchAllhub('${datas.id}')"></i>
           </div>
           
         </div>
@@ -82,7 +82,7 @@ const displayAllData=(data)=>{
         <p class="card-text">${datas.name}</p>
         <p class="card-text"><i class="fa-regular fa-calendar-days"></i> &nbsp; <span> ${datas.published_in}</span></p>
         </div>
-        <a><i class="fa-solid fa-arrow-right text-danger"></i></a>
+        <i class="fa-solid fa-arrow-right text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
         </div>
         
       </div>
@@ -91,6 +91,20 @@ const displayAllData=(data)=>{
       cardContainer.appendChild(card)
       seemore.classList.add('d-none');
   })
+
+}
+
+// show details on modal 
+const fetchAllhub=(id)=>{
+  const url= `https://openapi.programming-hero.com/api/ai/tool/${id}`
+  // console.log(url);
+  fetch(url)
+  .then(res=>res.json())
+  .then(data=>displayDetails(data.data))
+}
+
+const displayDetails=(detail)=>{
+  // console.log(detail);
 
 }
 
