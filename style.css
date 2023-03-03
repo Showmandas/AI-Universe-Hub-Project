@@ -32,5 +32,13 @@ height: 100px;
 }
 
 #exampleModal{
+    width: 100% !important;
+}
+
+
+@media screen and (max-width:576px) {
+    #costDiv{
+        flex-direction: column;
+    }
     
 }

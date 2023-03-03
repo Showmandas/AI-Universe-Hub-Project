@@ -107,21 +107,21 @@ const displayDetails=(detail)=>{
   console.log(detail);
 
   document.getElementById('modalBody').innerHTML=`
-  <div class="row">
+  <div class="row gy-4">
   <div class="col-12 col-lg-6 col-md-6">
   <div class="card border-danger bg-danger bg-opacity-10">
   <div class="card-body">
     <h5 class="card-title my-3">${detail.description}</h5>
-    <div class="d-flex  p-2 justify-content-around align-items-center gap-2 my-4">
-    <div class=" text-center bg-light rounded p-2" id="cost">
+    <div class="d-flex gap-2  p-2 justify-content-around align-items-center my-4" id="costDiv">
+    <div class=" text-center h-50 bg-light rounded p-2" id="cost">
     <p class="text-success fw-semibold">${detail.pricing[0].price==='0' || detail.pricing[0].price==='No cost' ? 'Free of cost':detail.pricing[0].price }<br>${detail.pricing[0].plan}
     </p>
     </div>
-    <div class="text-center text-center bg-light rounded p-2"  id="cost">
+    <div class="text-center h-50 text-center bg-light rounded p-2"  id="cost">
     <p class="text-warning fw-semibold">${detail.pricing[1].price==='No cost' ? 'Free of cost' :detail.pricing[1].price}<br>${detail.pricing[1].plan}
     </p>
     </div>
-    <div class=" text-center bg-light rounded p-2" id="cost">
+    <div class=" text-center h-50 bg-light rounded p-2" id="cost">
     <p class="text-danger fw-semibold">${detail.pricing[2].price}<br>${detail.pricing[2].plan}
     </p>
     </div>
@@ -235,7 +235,7 @@ const displayDetails=(detail)=>{
       // console.log(i);
       for(const j in detail.features[i]){
         // console.log(j);
-        for(const k in detail.features[i][j]){
+        for(const k in detail.features[j]){
           // console.log(k);
         }
       }
