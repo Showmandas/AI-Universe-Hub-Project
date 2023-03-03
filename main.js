@@ -1,24 +1,22 @@
-// fetch api 
-const loadData=()=>{
-  // start loading when page load 
-  const loading=document.getElementById('loading');
-    loading.classList.remove('d-none');
-    fetch('https://openapi.programming-hero.com/api/ai/tools')
-    .then(res=>res.json())
-    .then(data=>displayData(data.data))
-}
+// fetch api
+const loadData = () => {
+  // start loading when page load
+  const loading = document.getElementById("loading");
+  loading.classList.remove("d-none");
+  fetch("https://openapi.programming-hero.com/api/ai/tools")
+    .then((res) => res.json())
+    .then((data) => displayData(data.data));
+};
 
-// display data 
-const displayData=(data)=>{
-    // console.log(data);
-    const cardContainer=document.getElementById('card-section');
-    // document.getElementById('card-section').innerHTML='';
-    data.tools.slice(0,6).forEach((datas)=>{
-
-        // console.log(datas);
-        const card=document.createElement('div')
-        card.classList.add('col');
-        card.innerHTML=`
+// display data
+const displayData = (data) => {
+  // console.log(data);
+  const cardContainer = document.getElementById("card-section");
+  data.tools.slice(0, 6).forEach((datas) => {
+    // console.log(datas);
+    const card = document.createElement("div");
+    card.classList.add("col");
+    card.innerHTML = `
         <div class="card">
         <img src="${datas.image}" class="img-fluid" id="cardImg" alt="...">
         <div class="card-body">
@@ -40,33 +38,29 @@ const displayData=(data)=>{
         </div>
       </div>
         `;
-        cardContainer.appendChild(card)
+    cardContainer.appendChild(card);
 
-        // stop loading 
-        loading.classList.add('d-none');
+    // stop loading
+    loading.classList.add("d-none");
+  });
+};
 
-    })
+// show all card
+const showAll = () => {
+  fetch("https://openapi.programming-hero.com/api/ai/tools")
+    .then((res) => res.json())
+    .then((data) => displayAllData(data.data));
+};
 
-}
-
-
-// show all card 
-const showAll=()=>{
-    fetch('https://openapi.programming-hero.com/api/ai/tools')
-    .then(res=>res.json())
-    .then(data=>displayAllData(data.data))
-}
-
-const displayAllData=(data)=>{
-  const cardContainer=document.getElementById('card-section');
-  const seemore=document.getElementById('seeMore');
-  cardContainer.innerHTML=''
-  data.tools.forEach((datas)=>{
-
-      console.log(datas);
-      const card=document.createElement('div')
-      card.classList.add('col');
-      card.innerHTML=`
+const displayAllData = (data) => {
+  const cardContainer = document.getElementById("card-section");
+  const seemore = document.getElementById("seeMore");
+  cardContainer.innerHTML = "";
+  data.tools.forEach((datas) => {
+    console.log(datas);
+    const card = document.createElement("div");
+    card.classList.add("col");
+    card.innerHTML = `
       <div class="card">
       <img src="${datas.image}" class="img-fluid" id="cardImg" alt="...">
       <div class="card-body">
@@ -88,25 +82,23 @@ const displayAllData=(data)=>{
       </div>
     </div>
       `;
-      cardContainer.appendChild(card)
-      seemore.classList.add('d-none');
-  })
+    cardContainer.appendChild(card);
+    seemore.classList.add("d-none");
+  });
+};
 
-}
-
-// show details on modal 
-const fetchAllhub=(id)=>{
-  const url= `https://openapi.programming-hero.com/api/ai/tool/${id}`
+// show details on modal
+const fetchAllhub = (id) => {
+  const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
   // console.log(url);
   fetch(url)
-  .then(res=>res.json())
-  .then(data=>displayDetails(data.data))
-}
+    .then((res) => res.json())
+    .then((data) => displayDetails(data.data));
+};
 
-const displayDetails=(detail)=>{
+const displayDetails = (detail) => {
   console.log(detail);
-
-  document.getElementById('modalBody').innerHTML=`
+  document.getElementById("modalBody").innerHTML = `
   <div class="row gy-4">
   <div class="col-12 col-lg-6 col-md-6">
   <div class="card border-danger bg-danger bg-opacity-10">
@@ -114,22 +106,36 @@ const displayDetails=(detail)=>{
     <h5 class="card-title my-3">${detail.description}</h5>
     <div class="d-flex gap-2  p-2 justify-content-around align-items-center my-4" id="costDiv">
     <div class=" text-center h-50 bg-light rounded p-2" id="cost">
-    <p class="text-success fw-semibold">${detail.pricing[0].price==='0' || detail.pricing[0].price==='No cost' ? 'Free of cost':detail.pricing[0].price }<br>${detail.pricing[0].plan}
+    <p class="text-success fw-semibold">${
+      detail.pricing[0].price === "0" || detail.pricing[0].price === "No cost"
+        ? "Free of cost"
+        : detail.pricing[0].price
+    }<br>${detail.pricing[0].plan}
     </p>
     </div>
     <div class="text-center h-50 text-center bg-light rounded p-2"  id="cost">
-    <p class="text-warning fw-semibold">${detail.pricing[1].price==='No cost' ? 'Free of cost' :detail.pricing[1].price}<br>${detail.pricing[1].plan}
+    <p class="text-warning fw-semibold">${
+      detail.pricing[1].price === "No cost"
+        ? "Free of cost"
+        : detail.pricing[1].price
+    }<br>${detail.pricing[1].plan}
     </p>
     </div>
     <div class=" text-center h-50 bg-light rounded p-2" id="cost">
-    <p class="text-danger fw-semibold">${detail.pricing[2].price}<br>${detail.pricing[2].plan}
+    <p class="text-danger fw-semibold">${detail.pricing[2].price}<br>${
+    detail.pricing[2].plan
+  }
     </p>
     </div>
     </div>
     <div class="d-flex justify-content-between align-items-center gap-2 my-4">
     <div>
     <h5 class="card-title">Features</h5>
-        <ul id="features" class="d-none">
+        <ul id="features">
+        <li>${detail.features[1]["feature_name"]}</li>
+        <li>${detail.features[2]["feature_name"]}</li>
+        <li>${detail.features[3]["feature_name"]}</li>
+
         </ul>
     </div>
     <div>
@@ -147,7 +153,7 @@ const displayDetails=(detail)=>{
 <div class="card" id="cardId">
   <img src="${detail.image_link[0]}" class="img-fluid" id="modalImg" alt="...">
   <h4  class="badge text-bg-danger d-none w-50" id="accuracy">
-  ${detail.accuracy.score*100}% accuracy
+  ${detail.accuracy.score * 100}% accuracy
 </h4>
   <div class="card-body">
   
@@ -165,87 +171,37 @@ const displayDetails=(detail)=>{
   </div>
       
       `;
- 
-      // accuracy 
-  if(detail.accuracy.score === null){
-    const accuracy=document.getElementById('accuracy');
-    accuracy.classList.add('d-none')
-  }else{
-    const accuracy=document.getElementById('accuracy');
-    accuracy.classList.remove('d-none');
+
+  // accuracy
+  if (detail.accuracy.score === null) {
+    const accuracy = document.getElementById("accuracy");
+    accuracy.classList.add("d-none");
+  } else {
+    const accuracy = document.getElementById("accuracy");
+    accuracy.classList.remove("d-none");
   }
 
-
-  // integrations 
-  if(detail.integrations === null){
-    const intList=document.getElementById('integrations');
-    intList.classList.add('d-none')
-    const p=document.createElement('p');
-      p.innerHTML=`
+  // integrations
+  if (detail.integrations === null) {
+    const intList = document.getElementById("integrations");
+    intList.classList.add("d-none");
+    const p = document.createElement("p");
+    p.innerHTML = `
       <li>No more data</li>
       `;
-      intList.appendChild(p)
-  }else{
-    detail.integrations.forEach(i=>{
+    intList.appendChild(p);
+  } else {
+    detail.integrations.forEach((i) => {
       // console.log(i);
-      const intList=document.getElementById('integrations');
-      const li=document.createElement('li');
-      li.innerHTML=`
+      const intList = document.getElementById("integrations");
+      const li = document.createElement("li");
+      li.innerHTML = `
       <li>${i}</li>
-      `
-      intList.appendChild(li)
-      intList.classList.remove('d-none');
-      
-    })
-  }
-
-  // features 
-  if(detail.features === null){
-    const features=document.getElementById('features');
-    features.classList.add('d-none')
-    const p=document.createElement('p');
-      p.innerHTML=`
-      <li>No more data</li>
       `;
-      features.appendChild(p)
-  }else{
-    // detail.features.forEach((k)=>{
-
-    //   console.log(k);
-    //   const features=document.getElementById('features');
-    //   const li=document.createElement('li');
-    //   li.innerHTML=`
-    //   <li>${k['feature_name']}</li>
-    //   `
-    //   features.appendChild(li)
-    //   features.classList.remove('d-none');
-      
-    // })
-
-    
-    // const features=document.getElementById('features');
-    // const li=document.createElement('li');
-    // li.innerHTML=`
-    // <li>${t}</li>
-    // `
-    // features.appendChild(li)
-    // features.classList.remove('d-none');
-
-    for(const i in detail.features){
-      // console.log(i);
-      for(const j in detail.features[i]){
-        // console.log(j);
-        for(const k in detail.features[j]){
-          // console.log(k);
-        }
-      }
-      
-    }
-      
-
+      intList.appendChild(li);
+      intList.classList.remove("d-none");
+    });
   }
-  
-
-}
+};
 
 console.log(loadData());
