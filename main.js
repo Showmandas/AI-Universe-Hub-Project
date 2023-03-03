@@ -82,7 +82,7 @@ const displayAllData=(data)=>{
         <p class="card-text">${datas.name}</p>
         <p class="card-text"><i class="fa-regular fa-calendar-days"></i> &nbsp; <span> ${datas.published_in}</span></p>
         </div>
-        <i class="fa-solid fa-arrow-right text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="fetchAllhub('${datas.id}')"></i>
+        <i class="fa-solid fa-arrow-right text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="fetchAllhub('${datas.id}')" id="modalArrow"></i>
         </div>
         
       </div>
@@ -105,24 +105,25 @@ const fetchAllhub=(id)=>{
 
 const displayDetails=(detail)=>{
   console.log(detail);
+
   document.getElementById('modalBody').innerHTML=`
   <div className="row row-cols-1 row-cols-md-3">
   <div className="col-6">
   <div class="card border-danger bg-danger bg-opacity-10">
   <div class="card-body">
     <h5 class="card-title my-3">${detail.description}</h5>
-    <div class="d-flex justify-content-around align-items-center gap-2 my-4">
+    <div class="d-flex  p-2 justify-content-around align-items-center gap-2 my-4">
     <div class=" text-center bg-light rounded p-2" id="cost">
 
-    <p class="text-success fw-semibold">${detail.pricing[0].price === 0 ? detail.pricing[0].price : "Free Of Cost"}<br>${detail.pricing[0].plan}
+    <p id="costpara" class="text-success fw-semibold">${detail.pricing[0].price ? detail.pricing[0].price:'free of cost' }<br>${detail.pricing[0].plan}
     </p>
     </div>
-    <div class=" text-center bg-light rounded p-2"  id="cost">
-    <p>${detail.pricing[1].price === 0 ? detail.pricing[1].price : "Free Of Cost"}<br>${detail.pricing[1].plan}
+    <div class="text-center text-center bg-light rounded p-2"  id="cost">
+    <p class="text-warning fw-semibold">${detail.pricing[1].price}<br>${detail.pricing[1].plan}
     </p>
     </div>
     <div class=" text-center bg-light rounded p-2" id="cost">
-    <p>${detail.pricing[2].price === 0 ? detail.pricing[2].price : "Free Of Cost"}<br>${detail.pricing[2].plan}
+    <p class="text-danger fw-semibold">${detail.pricing[2].price}<br>${detail.pricing[2].plan}
     </p>
     </div>
     </div>
@@ -150,11 +151,11 @@ const displayDetails=(detail)=>{
 </div>
 </div>
 <div className="col-6">
-<div class="card">
+<div class="card" id="cardId">
   <img src="${detail.image_link[0]}" class="img-fluid" id="modalImg" alt="...">
-  <button type="button" class="btn btn-danger w-50 p-0" id="accuracyBtn">
+  <h4  class="badge text-bg-danger d-none w-50" id="accuracy">
   ${detail.accuracy.score*100}% accuracy
-</button>
+</h4>
   <div class="card-body">
   
     <div class="text-center d-flex flex-column justify-content-between align-items-center">
@@ -171,6 +172,14 @@ const displayDetails=(detail)=>{
   </div>
       
       `;
+      
+  if(detail.accuracy.score === null){
+    const accuracy=document.getElementById('accuracy');
+    accuracy.classList.add('d-none')
+  }else{
+    const accuracy=document.getElementById('accuracy');
+    accuracy.classList.remove('d-none');
+  }
 
 }
 
