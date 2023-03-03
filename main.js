@@ -115,7 +115,7 @@ const displayDetails=(detail)=>{
     <div class="d-flex  p-2 justify-content-around align-items-center gap-2 my-4">
     <div class=" text-center bg-light rounded p-2" id="cost">
 
-    <p id="costpara" class="text-success fw-semibold">${detail.pricing[0].price ? detail.pricing[0].price:'free of cost' }<br>${detail.pricing[0].plan}
+    <p id="costpara" class="text-success fw-semibold">${detail.pricing[0].price}<br>${detail.pricing[0].plan}
     </p>
     </div>
     <div class="text-center text-center bg-light rounded p-2"  id="cost">
@@ -138,10 +138,7 @@ const displayDetails=(detail)=>{
     </div>
     <div>
     <h5 class="card-title">Integration</h5>
-        <ul>
-        <li>${detail.integrations[0]}</li>
-        <li>${detail.integrations[1]}</li>
-        <li>${detail.integrations[2]}</li>
+        <ul class='d-none' id="intList">
         </ul>
     </div>
     </div>
@@ -172,7 +169,8 @@ const displayDetails=(detail)=>{
   </div>
       
       `;
-      
+ 
+      // accuracy 
   if(detail.accuracy.score === null){
     const accuracy=document.getElementById('accuracy');
     accuracy.classList.add('d-none')
@@ -180,6 +178,31 @@ const displayDetails=(detail)=>{
     const accuracy=document.getElementById('accuracy');
     accuracy.classList.remove('d-none');
   }
+
+
+  // integrations 
+  if(detail.integrations === null){
+    const intList=document.getElementById('intList');
+    intList.classList.add('d-none')
+    const p=document.createElement('p');
+      p.innerHTML=`
+      <li>No more data</li>
+      `;
+      intList.appendChild(p)
+  }else{
+    detail.integrations.forEach(i=>{
+      console.log(i);
+      const intList=document.getElementById('intList');
+      const li=document.createElement('li');
+      li.innerHTML=`
+      <li>${i}</li>
+      `
+      intList.appendChild(li)
+      intList.classList.remove('d-none');
+      
+    })
+  }
+  
 
 }
 
