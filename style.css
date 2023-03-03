@@ -10,3 +10,23 @@
 #cardImg{
     height: 250px !important;
 }
+
+#modalArrow{
+    cursor: pointer;
+}
+
+#cost{
+    width: 132px;
+height: 100px;
+}
+
+#modalImg{
+    position: relative;
+}
+
+#accuracyBtn{
+    position: absolute;
+    top:7%;
+    left: 50%;
+    transform: translate(-7%,-50%);
+}

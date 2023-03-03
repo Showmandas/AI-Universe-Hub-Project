@@ -34,7 +34,7 @@ const displayData=(data)=>{
           <p class="card-text">${datas.name}</p>
           <p class="card-text"><i class="fa-regular fa-calendar-days"></i> &nbsp; <span> ${datas.published_in}</span></p>
           </div>
-          <i class="fa-solid fa-arrow-right text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="fetchAllhub('${datas.id}')"></i>
+          <i class="fa-solid fa-arrow-right text-danger" id="modalArrow" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="fetchAllhub('${datas.id}')"></i>
           </div>
           
         </div>
@@ -82,7 +82,7 @@ const displayAllData=(data)=>{
         <p class="card-text">${datas.name}</p>
         <p class="card-text"><i class="fa-regular fa-calendar-days"></i> &nbsp; <span> ${datas.published_in}</span></p>
         </div>
-        <i class="fa-solid fa-arrow-right text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
+        <i class="fa-solid fa-arrow-right text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="fetchAllhub('${datas.id}')"></i>
         </div>
         
       </div>
@@ -104,7 +104,73 @@ const fetchAllhub=(id)=>{
 }
 
 const displayDetails=(detail)=>{
-  // console.log(detail);
+  console.log(detail);
+  document.getElementById('modalBody').innerHTML=`
+  <div className="row row-cols-1 row-cols-md-3">
+  <div className="col-6">
+  <div class="card border-danger bg-danger bg-opacity-10">
+  <div class="card-body">
+    <h5 class="card-title my-3">${detail.description}</h5>
+    <div class="d-flex justify-content-around align-items-center gap-2 my-4">
+    <div class=" text-center bg-light rounded p-2" id="cost">
+
+    <p class="text-success fw-semibold">${detail.pricing[0].price === 0 ? detail.pricing[0].price : "Free Of Cost"}<br>${detail.pricing[0].plan}
+    </p>
+    </div>
+    <div class=" text-center bg-light rounded p-2"  id="cost">
+    <p>${detail.pricing[1].price === 0 ? detail.pricing[1].price : "Free Of Cost"}<br>${detail.pricing[1].plan}
+    </p>
+    </div>
+    <div class=" text-center bg-light rounded p-2" id="cost">
+    <p>${detail.pricing[2].price === 0 ? detail.pricing[2].price : "Free Of Cost"}<br>${detail.pricing[2].plan}
+    </p>
+    </div>
+    </div>
+    <div class="d-flex justify-content-between align-items-center gap-2 my-4">
+    <div>
+    <h5 class="card-title">Features</h5>
+        <ul>
+        <li>${detail.features[1]['feature_name']}</li>
+        <li>${detail.features[2]['feature_name']}</li>
+        <li>${detail.features[3]['feature_name']}</li>
+        </ul>
+    </div>
+    <div>
+    <h5 class="card-title">Integration</h5>
+        <ul>
+        <li>${detail.integrations[0]}</li>
+        <li>${detail.integrations[1]}</li>
+        <li>${detail.integrations[2]}</li>
+        </ul>
+    </div>
+    </div>
+    
+    
+  </div>
+</div>
+</div>
+<div className="col-6">
+<div class="card">
+  <img src="${detail.image_link[0]}" class="img-fluid" id="modalImg" alt="...">
+  <button type="button" class="btn btn-danger w-50 p-0" id="accuracyBtn">
+  ${detail.accuracy.score*100}% accuracy
+</button>
+  <div class="card-body">
+  
+    <div class="text-center d-flex flex-column justify-content-between align-items-center">
+    
+    <h5 class="card-text">${detail.input_output_examples[0].input}</h5>
+    <p class="card-text">${detail.input_output_examples[0].output}</p>
+    <div>
+    </div>
+    </div>
+    
+  </div>
+</div>
+</div>
+  </div>
+      
+      `;
 
 }
 
